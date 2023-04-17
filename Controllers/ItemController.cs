@@ -25,7 +25,7 @@ namespace SndAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetList() //controller for tests
         {
-            var Ids = await _sndDbContext.OutfitIDs.ToListAsync();
+            var Ids = await _sndDbContext.OutfitIDs.Where(b=>b.UpdateDate.DayOfYear==DateTime.Now.DayOfYear).ToListAsync();
             return Ok(Ids);
         }
     }
