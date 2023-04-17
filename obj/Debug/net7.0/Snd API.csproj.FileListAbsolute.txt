@@ -1,0 +1,7 @@
+C:\Users\tnowicki\Desktop\C_S\SND\SndAPI\obj\Debug\net7.0\Snd API.csproj.AssemblyReference.cache
+C:\Users\tnowicki\Desktop\C_S\SND\SndAPI\obj\Debug\net7.0\Snd API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tnowicki\Desktop\C_S\SND\SndAPI\obj\Debug\net7.0\Snd API.AssemblyInfoInputs.cache
+C:\Users\tnowicki\Desktop\C_S\SND\SndAPI\obj\Debug\net7.0\Snd API.AssemblyInfo.cs
+C:\Users\tnowicki\Desktop\C_S\SND\SndAPI\obj\Debug\net7.0\Snd API.csproj.CoreCompileInputs.cache
+C:\Users\tnowicki\Desktop\C_S\SND\SndAPI\obj\Debug\net7.0\Snd API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\tnowicki\Desktop\C_S\SND\SndAPI\obj\Debug\net7.0\Snd API.MvcApplicationPartsAssemblyInfo.cache
