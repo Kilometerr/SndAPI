@@ -1,6 +1,7 @@
 
 using SndAPI.Data;
 using SndAPI.Models;
+using SndAPI.Comparers;
 using Microsoft.EntityFrameworkCore;
 
 namespace SndAPI.Services
@@ -61,7 +62,6 @@ namespace SndAPI.Services
             foreach (var item in toCompare)
             {
                 if(item.newDistinct.TotalTrades>item.distinct.TotalTrades){
-
                     jsonOutfits.Add(new Item
                     {
                         GameId = item.newDistinct.GameId,
@@ -73,7 +73,7 @@ namespace SndAPI.Services
                 }
             }
 
-            return jsonOutfits;
+            return jsonOutfits.Distinct(new ItemComparer()).ToList();
         }
 
         public async Task SaveIDsAsync(OutfitIDs outfitIDs)
