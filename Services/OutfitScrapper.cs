@@ -20,28 +20,35 @@ namespace SndAPI.Services
         public async Task Scrap()
         {
             var client = _bdoApiClient.GetClientAll();
+
             var stringJson = await _arshaService.GetAll(client);
-            var outfitIDs = ScrapOutfitIDs(JsonConvert.DeserializeObject<List<JsonItem>>(stringJson));
-            await _outfitRepository.SaveIDsAsync(outfitIDs);
+            ScrapOutfitIDs(JsonConvert.DeserializeObject<List<JsonItem>>(stringJson));
+
         }
 
-        private static OutfitIDs ScrapOutfitIDs(List<JsonItem> jsonItems)
+        private async void ScrapOutfitIDs(List<JsonItem> jsonItems)
         {
             var outfitIDs = new StringBuilder();
+            var clientID = _bdoApiClient.GetClientList();
+
             foreach (var item in jsonItems)
             {
                 if (item.Name.Contains("Outfit Set") || item.Name.Contains("Premium Set"))
                 {
-                    outfitIDs.Append(item.Id);
-                    outfitIDs.Append(",");
+                    var outfit = await _arshaService.GetById(clientID, (int)item.Id);
+                    if (!outfit.Contains("null"))
+                    {
+                        outfitIDs.Append(item.Id+",");
+                    }
                 }
             }
 
-            return new OutfitIDs
+            var allOutfitIDs = new OutfitIDs
             {
                 IdList = outfitIDs.ToString().TrimEnd(','),
                 UpdateDate = DateTime.Now
             };
+            await _outfitRepository.SaveIDsAsync(allOutfitIDs);
         }
     }
 }
