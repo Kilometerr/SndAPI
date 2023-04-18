@@ -12,7 +12,7 @@ namespace SndAPI.Services
             return jsonResponse;
         }
 
-        public async Task<String> GetById(HttpClient httpClient, int id)
+        public async Task<string> GetById(HttpClient httpClient, int id)
         {
             using HttpResponseMessage response = await httpClient.GetAsync($"?ids={id}");
 
