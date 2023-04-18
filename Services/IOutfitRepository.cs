@@ -8,5 +8,6 @@ namespace SndAPI.Services
         Task<List<OutfitIDs>> GetIdList();
         Task<List<OutfitIDs>> GetIdListToday();
         Task<OutfitIDs> GetIdListLastUpdate();
+        Task SaveOuftitDump(List<List<JsonOutfit>> jsonOutfit);
     }
 }

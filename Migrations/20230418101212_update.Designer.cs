@@ -12,15 +12,15 @@ using SndAPI.Data;
 namespace Snd_API.Migrations
 {
     [DbContext(typeof(SndDbContext))]
-    [Migration("20230414105450_outfitids222")]
-    partial class outfitids222
+    [Migration("20230418101212_update")]
+    partial class update
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0-preview.3.23174.2")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -49,6 +49,59 @@ namespace Snd_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("SndAPI.Models.JsonOutfit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("BasePrice")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrentStock")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LastSoldPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LastSoldTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Maxenhance")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinEnhance")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PriceMax")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PriceMin")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalTrades")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OutfitDump");
                 });
 
             modelBuilder.Entity("SndAPI.Models.OutfitIDs", b =>

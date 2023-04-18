@@ -17,21 +17,28 @@ namespace SndAPI.Services
             _outfitRepository = outfitRepository;
         }
 
-        public Task GetOutfits()
+        public async Task GetOutfits()
         {
-            throw new NotImplementedException();
+            var IDs = await _outfitRepository.GetIdListLastUpdate();
+            if (IDs.UpdateDate.DayOfYear != DateTime.Now.DayOfYear)
+            {
+                IDs = await ScrapIDs();
+            }
+            var client = _bdoApiClient.PostClientOutfitIDs(IDs.IdList!);
+            var stringJson = await _arshaService.PostOutfitIDs(client);
+            var convertedOutfits = JsonConvert.DeserializeObject<List<List<JsonOutfit>>>(stringJson);
+            await _outfitRepository.SaveOuftitDump(convertedOutfits!);
         }
 
-        public async Task Scrap()
+        public async Task<OutfitIDs> ScrapIDs()
         {
             var client = _bdoApiClient.GetClientAll();
 
             var stringJson = await _arshaService.GetAll(client);
-            ScrapOutfitIDs(JsonConvert.DeserializeObject<List<JsonItem>>(stringJson));
-
+            return await ScrapOutfitIDs(JsonConvert.DeserializeObject<List<JsonItem>>(stringJson));
         }
 
-        private async void ScrapOutfitIDs(List<JsonItem> jsonItems)
+        private async Task<OutfitIDs> ScrapOutfitIDs(List<JsonItem> jsonItems)
         {
             var outfitIDs = new StringBuilder();
             var clientID = _bdoApiClient.GetClientList();
@@ -43,7 +50,7 @@ namespace SndAPI.Services
                     var outfit = await _arshaService.GetById(clientID, (int)item.Id);
                     if (!outfit.Contains("null"))
                     {
-                        outfitIDs.Append(item.Id+",");
+                        outfitIDs.Append(item.Id + ",");
                     }
                 }
             }
@@ -54,6 +61,7 @@ namespace SndAPI.Services
                 UpdateDate = DateTime.Now
             };
             await _outfitRepository.SaveIDsAsync(allOutfitIDs);
+            return (allOutfitIDs);
         }
     }
 }

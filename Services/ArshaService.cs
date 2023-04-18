@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using SndAPI.Clients;
 
 namespace SndAPI.Services
@@ -22,5 +23,12 @@ namespace SndAPI.Services
             return jsonResponse;
         }
 
+        public async Task<string> PostOutfitIDs(HttpClient httpClient)
+        {
+            StringContent queryString = new StringContent("");
+            using HttpResponseMessage response = await httpClient.PostAsync("", queryString);
+            response.EnsureSuccessStatusCode().WriteRequestToConsole();
+            return await response.Content.ReadAsStringAsync();
+        }
     }
 }

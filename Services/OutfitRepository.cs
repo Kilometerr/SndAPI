@@ -33,5 +33,18 @@ namespace SndAPI.Services
             await _sndDbContext.OutfitIDs.AddAsync(outfitIDs);
             await _sndDbContext.SaveChangesAsync();
         }
+
+        public async Task SaveOuftitDump(List<List<JsonOutfit>> jsonOutfits)
+        {
+            foreach (var item in jsonOutfits)
+            {
+                foreach (var outfit in item)
+                {
+                    outfit.UpdateDate=DateTime.Now;
+                    await _sndDbContext.OutfitDump.AddAsync(outfit);
+                }
+            }
+            await _sndDbContext.SaveChangesAsync();
+        }
     }
 }

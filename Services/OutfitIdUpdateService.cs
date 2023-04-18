@@ -17,7 +17,7 @@ namespace SndAPI.Services
             {
                 try
                 {
-                    await _outfitScrapper.Scrap();
+                    await _outfitScrapper.ScrapIDs();
                     _logger.LogInformation("Outfit ID update successful.");
                 }
                 catch (Exception ex)
