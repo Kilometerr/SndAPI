@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SndAPI.Clients;
 using SndAPI.Services;
 using SndAPI.Data;
+using SndAPI.Models;
 
 namespace SndAPI.Controllers
 {
@@ -19,10 +20,9 @@ namespace SndAPI.Controllers
 
         //todo add so it gets id from form on site
         [HttpGet]
-        public async Task<IActionResult> GetList() //controller for tests
+        public List<JsonOutfit> GetList() //controller for tests
         {
-            var Ids = await _outfitRepository.GetIdListLastUpdate();
-            return Ok(Ids);
+            return _outfitRepository.GetOufitsLastUpdate();
         }
     }
 }
