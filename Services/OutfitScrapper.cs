@@ -17,6 +17,11 @@ namespace SndAPI.Services
             _outfitRepository = outfitRepository;
         }
 
+        public Task GetOutfits()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task Scrap()
         {
             var client = _bdoApiClient.GetClientAll();

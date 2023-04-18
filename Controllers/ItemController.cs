@@ -10,22 +10,18 @@ namespace SndAPI.Controllers
     [Route("api/[controller]")]
     public class ItemController : Controller
     {
-        private readonly IArshaService _arshaService;
-        private readonly IBdoApiClient _bdoApiClient;
-        private readonly SndDbContext _sndDbContext;
+        private readonly IOutfitRepository _outfitRepository;
 
-        public ItemController(IArshaService arshaService, IBdoApiClient bdoApiClient, SndDbContext sndDbContext)
+        public ItemController(IOutfitRepository outfitRepository)
         {
-            _arshaService = arshaService;
-            _bdoApiClient = bdoApiClient;
-            _sndDbContext = sndDbContext;
+            _outfitRepository = outfitRepository;
         }
 
         //todo add so it gets id from form on site
         [HttpGet]
         public async Task<IActionResult> GetList() //controller for tests
         {
-            var Ids = await _sndDbContext.OutfitIDs.Where(b=>b.UpdateDate.DayOfYear==DateTime.Now.DayOfYear).ToListAsync();
+            var Ids = await _outfitRepository.GetIdListLastUpdate();
             return Ok(Ids);
         }
     }

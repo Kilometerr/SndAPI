@@ -1,5 +1,6 @@
 using SndAPI.Data;
 using SndAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SndAPI.Services
 {
@@ -10,6 +11,21 @@ namespace SndAPI.Services
         public OutfitRepository(SndDbContext sndDbContext)
         {
             _sndDbContext = sndDbContext;
+        }
+
+        public async Task<List<OutfitIDs>> GetIdList()
+        {
+            return await _sndDbContext.OutfitIDs.ToListAsync();
+        }
+
+        public async Task<OutfitIDs> GetIdListLastUpdate()
+        {
+            return await _sndDbContext.OutfitIDs.OrderByDescending(b=>b.UpdateDate).FirstAsync();
+        }
+
+        public async Task<List<OutfitIDs>> GetIdListToday()
+        {
+            return await _sndDbContext.OutfitIDs.Where(b=>b.UpdateDate.DayOfYear==DateTime.Now.DayOfYear).ToListAsync();
         }
 
         public async Task SaveIDsAsync(OutfitIDs outfitIDs)
