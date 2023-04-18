@@ -2,7 +2,7 @@ namespace SndAPI.Services
 {
     public class SoldOutfitsUpdateService: BackgroundService
     {
-        private readonly PeriodicTimer _timer = new(TimeSpan.FromMinutes(30)); // scrape every 30mins
+        private readonly PeriodicTimer _timer = new(TimeSpan.FromMinutes(15)); // scrape every 30mins
         private readonly ILogger<OutfitIdUpdateService> _logger;
         private readonly IOutfitScrapper _outfitScrapper;
         public SoldOutfitsUpdateService(IOutfitScrapper outfitScrapper, ILogger<OutfitIdUpdateService> logger)

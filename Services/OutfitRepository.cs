@@ -31,6 +31,7 @@ namespace SndAPI.Services
         public List<JsonOutfit?> GetOufitsLastUpdate()
         {
             return _sndDbContext.OutfitDump
+            .OrderByDescending(g=>g.TotalTrades)
             .GroupBy(g => g.GameId)
             .Select(group => group.OrderByDescending(g => g.UpdateDate).FirstOrDefault())
             .ToList();
