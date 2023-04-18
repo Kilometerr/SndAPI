@@ -1,3 +1,4 @@
+
 using SndAPI.Data;
 using SndAPI.Models;
 using Microsoft.EntityFrameworkCore;
@@ -31,10 +32,48 @@ namespace SndAPI.Services
         public List<JsonOutfit?> GetOufitsLastUpdate()
         {
             return _sndDbContext.OutfitDump
-            .OrderByDescending(g=>g.TotalTrades)
             .GroupBy(g => g.GameId)
             .Select(group => group.OrderByDescending(g => g.UpdateDate).FirstOrDefault())
             .ToList();
+        }
+
+        public List<Item?> GetOufitsSoldToday()
+        {
+            var jsonOutfits = new List<Item>();
+
+            var distinct = _sndDbContext.OutfitDump
+            .GroupBy(g=>new{g.GameId, g.UpdateDate.Date})
+            .Select(group => group.OrderBy(g=>g.UpdateDate).First())
+            .ToList();
+
+            var newDistinct = _sndDbContext.OutfitDump
+            .GroupBy(g => g.GameId)
+            .Select(group => group.OrderByDescending(g => g.UpdateDate).First())
+            .ToList();
+
+            var toCompare = newDistinct.Join(
+                distinct,
+                n => n.GameId,
+                d => d.GameId,
+                (n,d) => new {newDistinct = n, distinct = d}
+            );
+
+            foreach (var item in toCompare)
+            {
+                if(item.newDistinct.TotalTrades>item.distinct.TotalTrades){
+
+                    jsonOutfits.Add(new Item
+                    {
+                        GameId = item.newDistinct.GameId,
+                        Name = item.newDistinct.Name,
+                        TotalSold = item.newDistinct.TotalTrades,
+                        SoldToday = item.newDistinct.TotalTrades - item.distinct.TotalTrades,
+                        SoldWeek = item.newDistinct.TotalTrades - item.distinct.TotalTrades
+                    });
+                }
+            }
+
+            return jsonOutfits;
         }
 
         public async Task SaveIDsAsync(OutfitIDs outfitIDs)

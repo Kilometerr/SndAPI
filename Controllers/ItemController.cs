@@ -20,9 +20,9 @@ namespace SndAPI.Controllers
 
         //todo add so it gets id from form on site
         [HttpGet]
-        public List<JsonOutfit> GetList() //controller for tests
+        public List<Item> GetList() //controller for tests
         {
-            return _outfitRepository.GetOufitsLastUpdate();
+            return _outfitRepository.GetOufitsSoldToday();
         }
     }
 }
