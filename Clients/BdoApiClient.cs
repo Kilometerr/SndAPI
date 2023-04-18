@@ -18,6 +18,12 @@ namespace SndAPI.Clients
             };
         }
 
-
+        public HttpClient PostClientOutfitIDs(string ids)
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://api.arsha.io/v2/eu/GetWorldMarketSubList");
+            client.DefaultRequestHeaders.Add("id",ids);
+            return client;
+        }
     }
 }

@@ -12,8 +12,8 @@ using SndAPI.Data;
 namespace Snd_API.Migrations
 {
     [DbContext(typeof(SndDbContext))]
-    [Migration("20230414155508_InitialCreatePC")]
-    partial class InitialCreatePC
+    [Migration("20230418100705_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,56 @@ namespace Snd_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("SndAPI.Models.JsonOutfit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("BasePrice")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrentStock")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LastSoldPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LastSoldTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Maxenhance")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinEnhance")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PriceMax")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PriceMin")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalTrades")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OutfitDump");
                 });
 
             modelBuilder.Entity("SndAPI.Models.OutfitIDs", b =>

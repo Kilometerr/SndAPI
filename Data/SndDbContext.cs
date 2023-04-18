@@ -9,6 +9,7 @@ namespace SndAPI.Data
         }
 
         public DbSet<Item> Items { get; set; }
+        public DbSet<JsonOutfit> OutfitDump { get; set; }
         public DbSet<OutfitIDs> OutfitIDs { get; set; }
     }
 }

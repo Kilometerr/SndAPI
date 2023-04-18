@@ -1,7 +1,9 @@
+using SndAPI.Models;
 namespace SndAPI.Services
 {
     public interface IOutfitScrapper
     {
-        Task Scrap();
+        Task GetOutfits();
+        Task<OutfitIDs> ScrapIDs();
     }
 }

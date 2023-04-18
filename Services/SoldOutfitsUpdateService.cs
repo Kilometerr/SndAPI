@@ -1,11 +1,11 @@
 namespace SndAPI.Services
 {
-    public class OutfitIdUpdateService : BackgroundService
+    public class SoldOutfitsUpdateService: BackgroundService
     {
-        private readonly PeriodicTimer _timer = new(TimeSpan.FromHours(6)); // scrape every 6 hour
-        private readonly IOutfitScrapper _outfitScrapper;
+        private readonly PeriodicTimer _timer = new(TimeSpan.FromMinutes(30)); // scrape every 30mins
         private readonly ILogger<OutfitIdUpdateService> _logger;
-        public OutfitIdUpdateService(IOutfitScrapper outfitScrapper, ILogger<OutfitIdUpdateService> logger)
+        private readonly IOutfitScrapper _outfitScrapper;
+        public SoldOutfitsUpdateService(IOutfitScrapper outfitScrapper, ILogger<OutfitIdUpdateService> logger)
         {
             _outfitScrapper = outfitScrapper;
             _logger = logger;
@@ -17,15 +17,14 @@ namespace SndAPI.Services
             {
                 try
                 {
-                    await _outfitScrapper.ScrapIDs();
-                    _logger.LogInformation("Outfit ID update successful.");
+                    await _outfitScrapper.GetOutfits();
+                    _logger.LogInformation("Getting outfits successful.");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Outfit ID update failed.");
+                    _logger.LogError(ex, "Getting outfits failed.");
                 }
             }
         }
     }
-
 }

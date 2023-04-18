@@ -13,6 +13,7 @@ builder.Services.AddTransient<IBdoApiClient, BdoApiClient>();
 builder.Services.AddTransient<IOutfitScrapper, OutfitScrapper>();
 builder.Services.AddTransient<IOutfitRepository, OutfitRepository>();
 builder.Services.AddHostedService<OutfitIdUpdateService>();
+builder.Services.AddHostedService<SoldOutfitsUpdateService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SndDbContext>(options =>

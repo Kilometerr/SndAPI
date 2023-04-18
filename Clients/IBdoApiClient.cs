@@ -5,5 +5,6 @@ namespace SndAPI.Clients
     {
         HttpClient GetClientList();
         HttpClient GetClientAll();
+        HttpClient PostClientOutfitIDs(string ids);
     }
 }
