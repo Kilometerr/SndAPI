@@ -43,11 +43,18 @@ namespace SndAPI.Services
             var jsonOutfits = new List<Item>();
 
             var distinct = _sndDbContext.OutfitDump
+            .Where(g=>g.UpdateDate.DayOfYear==DateTime.Now.DayOfYear)
             .GroupBy(g=>new{g.GameId, g.UpdateDate.Date})
             .Select(group => group.OrderBy(g=>g.UpdateDate).First())
             .ToList();
 
+            foreach (var item in distinct)
+            {
+             System.Console.WriteLine(item);   
+            }
+
             var newDistinct = _sndDbContext.OutfitDump
+            .Where(g=>g.UpdateDate.DayOfYear==DateTime.Now.DayOfYear)
             .GroupBy(g => g.GameId)
             .Select(group => group.OrderByDescending(g => g.UpdateDate).First())
             .ToList();
@@ -72,7 +79,6 @@ namespace SndAPI.Services
                     });
                 }
             }
-
             return jsonOutfits.Distinct(new ItemComparer()).ToList();
         }
 
