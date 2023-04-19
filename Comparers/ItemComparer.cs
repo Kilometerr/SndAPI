@@ -9,7 +9,6 @@ namespace SndAPI.Comparers
         {
             return x.GameId == y.GameId;
         }
-
         public int GetHashCode([DisallowNull] Item obj)
         {
             return obj.GameId.GetHashCode();

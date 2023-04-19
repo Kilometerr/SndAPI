@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SndAPI.Clients;
 using SndAPI.Services;
-using SndAPI.Data;
 using SndAPI.Models;
 
 namespace SndAPI.Controllers
@@ -18,9 +15,8 @@ namespace SndAPI.Controllers
             _outfitRepository = outfitRepository;
         }
 
-        //todo add so it gets id from form on site
         [HttpGet]
-        public List<Item> GetList() //controller for tests
+        public List<Item> GetList()
         {
             return _outfitRepository.GetOufitsSoldToday();
         }

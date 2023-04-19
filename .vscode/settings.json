@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "bin\\Release\\net7.0\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/39b296b9-93c4-4c0c-9492-c8e81998e44b/resourceGroups/SND/providers/Microsoft.Web/sites/SVNDAPI"
+}
